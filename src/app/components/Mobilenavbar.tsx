@@ -32,7 +32,7 @@ const Mobilenavbar = () => {
   
             <Link
               href='/'
-              className=" cursor-pointer flex items-center gap-2">
+              className=" cursor-pointer flex items-center gap-1 px-4">
               <Image 
                 src="/icons/logo.svg"
                 width={34}
