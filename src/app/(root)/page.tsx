@@ -2,9 +2,10 @@ import React from 'react'
 import Headbox from '../components/Headbox'
 import TotalBalanceBox from '../components/TotalBalanceBox'
 import RigthSidebar from '../components/RigthSidebar'
+import { getLoggedInUser } from '@/lib/actions/userAction'
 
-const Main = () => {
-    const loggedInUser = {firstName : "Nolly", lastName:"Brown", email:"Nollybrown@gmail.com" }
+const Main = async () => {
+    const loggedInUser = await getLoggedInUser()
   return (
     <section className='home'>
         <div className='home-content'>
@@ -13,7 +14,7 @@ const Main = () => {
                 title='Welcome'
                 subtext='Welcome to your Dashboard'
                 type='greeting'
-                user= {loggedInUser?.firstName || "Guest"}
+                user= {loggedInUser?.name || "Guest"}
                 />
                 <TotalBalanceBox
                 accounts={[]}

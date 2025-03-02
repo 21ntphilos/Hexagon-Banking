@@ -1,11 +1,15 @@
 import AuthForm from "@/app/components/AuthForm"
+import { getLoggedInUser } from "@/lib/actions/userAction";
 
 
-const SignUp = () => {
+const SignUp = async () => {
+  const user = await getLoggedInUser();
+  console.log(user)
+
   return (
-    <div>
+    <section className="flex-center size-full max-sm:px-6">
       <AuthForm type={"signUp"} />
-      </div>
+      </section>
   )
 }
 

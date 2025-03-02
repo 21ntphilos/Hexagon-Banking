@@ -196,7 +196,21 @@ export const getTransactionStatus = (date: Date) => {
   return date > twoDaysAgo ? "Processing" : "Success";
 };
 
- export const authformSchema = z.object({
-    email: z.string().email(),
-    password:z.string().min(8)
-})
+ export const authformSchema = (type: string) =>{
+  console.log("Got here")
+		return z.object({
+			firstName:
+				type === "signIn" ? z.string().optional() : z.string().min(3).trim(),
+			lastName: type === "signIn" ? z.string().optional() : z.string().min(3),
+			address: type === "signIn" ? z.string().optional() : z.string().min(3),
+			state: type === "signIn" ? z.string().optional() : z.string().min(3),
+			postalCode: type === "signIn" ? z.string().optional() : z.string().min(3),
+			dateOfBirth:
+				type === "signIn" ? z.string().optional() : z.string().min(3),
+			SSN: type === "signIn" ? z.string().optional() : z.string().min(3),
+			email: z.string().email(),
+			password: z.string().min(8),
+		});
+			
+  }
+	

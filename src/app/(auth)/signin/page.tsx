@@ -1,8 +1,11 @@
 import AuthForm from "@/app/components/AuthForm"
 
 const SignIn = () => {
+  
   return (
-    <div> <AuthForm type={"signIn"} /></div>
+    <div className="flex-center size-full max-sm:px-6"> 
+    <AuthForm type={"signIn"} />
+    </div>
   )
 }
 
