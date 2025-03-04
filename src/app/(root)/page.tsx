@@ -24,6 +24,7 @@ const Main = async () => {
             </header>
             RECENT TRANSACTION
         </div>
+      {/* // "dev": "next dev --turbopack", */}
       <RigthSidebar user={loggedInUser} banks={[{ currentBalance: 6442.56 }, { currentBalance:64542.65}]} transactions={[]}/>
     </section>
   )

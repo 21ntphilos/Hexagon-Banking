@@ -1,0 +1,1 @@
+{"stdout":"","stderr":"npm ERR! code EIDLETIMEOUT\nnpm ERR! Idle timeout reached for host `registry.npmjs.org:443`\n\nnpm ERR! A complete log of this run can be found in: /Users/Uche/.npm/_logs/2025-03-03T10_44_23_888Z-debug-0.log\n"}
