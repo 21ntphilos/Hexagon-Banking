@@ -3,8 +3,8 @@ import { getLoggedInUser } from "@/lib/actions/userAction";
 
 
 const SignUp = async () => {
-  const user = await getLoggedInUser();
-  console.log(user)
+  // const user = await getLoggedInUser();
+  // console.log(user)
 
   return (
     <section className="flex-center size-full max-sm:px-6">

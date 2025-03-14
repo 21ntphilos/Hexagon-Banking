@@ -202,12 +202,13 @@ export const getTransactionStatus = (date: Date) => {
 			firstName:
 				type === "signIn" ? z.string().optional() : z.string().min(3).trim(),
 			lastName: type === "signIn" ? z.string().optional() : z.string().min(3),
-			address: type === "signIn" ? z.string().optional() : z.string().min(3),
-			state: type === "signIn" ? z.string().optional() : z.string().min(3),
-			postalCode: type === "signIn" ? z.string().optional() : z.string().min(3),
+			address1: type === "signIn" ? z.string().optional() : z.string().min(3),
+			city: type === "signIn" ? z.string().optional() : z.string().min(3),
+			state: type === "signIn" ? z.string().optional() : z.string(),
+			postalCode: type === "signIn" ? z.string().optional() : z.string().min(5),
 			dateOfBirth:
 				type === "signIn" ? z.string().optional() : z.string().min(3),
-			SSN: type === "signIn" ? z.string().optional() : z.string().min(3),
+			ssn: type === "signIn" ? z.string().optional() : z.string().min(4),
 			email: z.string().email(),
 			password: z.string().min(8),
 		});
