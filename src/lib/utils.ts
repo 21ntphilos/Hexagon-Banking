@@ -181,6 +181,7 @@ export function extractCustomerIdFromUrl(url: string) {
 }
 
 export function encryptId(id: string) {
+  // return Buffer.from(id, "base64");
   return btoa(id);
 }
 
