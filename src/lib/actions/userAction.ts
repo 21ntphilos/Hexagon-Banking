@@ -1,6 +1,6 @@
 'use server'
 
-import { ID } from "node-appwrite"
+import { ID, Query } from "node-appwrite"
 import { createAdminClient, createSessionClient } from "../server/appWrite";
 import { cookies } from "next/headers";
 import { encryptId, extractCustomerIdFromUrl, parseStringify } from "../utils";
@@ -13,6 +13,20 @@ const {
   APPWRITE_BANKS_COLLECTION_ID: BANK_COLLECTION_ID,
   APPWRITE_USERS_COLLECTION_ID: USER_COLLECTION_ID,
 } = process.env
+
+export const getUserInfo = async({userId}:getUserInfoProps)=>{
+    try {
+		const { databases } = await createAdminClient();
+
+		const user = await databases.listDocuments(DB_ID!, USER_COLLECTION_ID!, [
+			Query.equal("userId", [userId]),
+		]);
+
+		return parseStringify(user.documents[0]);
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 export const signUp = async ({password, ...data}:SignUpParams)=>{
     const {firstName, lastName, email} = data
@@ -80,8 +94,9 @@ export const signIn = async({email, password}:signInProps) => {
                 secure: true,
             });
             console.log(response)
+            const user = await getUserInfo({userId: response.userId})
          
-        return parseStringify(response)
+        return parseStringify(user)
 
 	} catch (error) {
           console.log(error);
@@ -91,7 +106,10 @@ export const signIn = async({email, password}:signInProps) => {
 export async function getLoggedInUser() {
 	try {
 		const { account } = await createSessionClient();
-        const user = await account.get();
+        const result = await account.get();
+        const user = await getUserInfo({userId: result.$id})
+
+
 		return parseStringify(user)
 	} catch (error) {
         console.error(error)
@@ -118,9 +136,10 @@ export const getPlaidToken = async (user:User)=>{
 						client_user_id: user.$id,
 					},
 					client_name: `${user.firstName} ${user.lastName}`,
-					products: ["auth"] as Products[],
+					products: ["auth", "transactions"] as Products[],
 					country_codes: ["US"] as CountryCode[],
 					language: "en",
+					update: { reauthorization_enabled: true },
 				};
 
         const response = await plaidClient.linkTokenCreate(tokenParams)
@@ -220,5 +239,34 @@ export const exchangePublictoken = async ({
 	} catch (error) {
 		console.log(error);
         console.trace()
+	}
+};
+
+export const getBanks = async({userId}:getBanksProps)=>{
+
+    try {
+        
+        const {databases} = await createAdminClient()
+    
+        const banks = await databases.listDocuments(DB_ID!,BANK_COLLECTION_ID!,[Query.equal('userId',[userId])])
+    
+        return parseStringify(banks.documents)
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+export const getBank = async ({ documentId }: getBankProps) => {
+	try {
+		const { databases } = await createAdminClient();
+
+		const bank = await databases.listDocuments(DB_ID!, BANK_COLLECTION_ID!, [
+			Query.equal("$id", [documentId]),
+		]);
+
+		return parseStringify(bank.documents[0]);
+	} catch (error) {
+		console.log(error);
 	}
 };

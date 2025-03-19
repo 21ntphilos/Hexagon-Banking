@@ -1,4 +1,3 @@
-import React from 'react'
 
 const Headbox = ({title, subtext, user, type="title"}:HeaderBoxProps) => {
   return (

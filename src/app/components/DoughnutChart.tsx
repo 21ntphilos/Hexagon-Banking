@@ -7,18 +7,22 @@ import { Chart, ArcElement, Tooltip, Legend } from 'chart.js'
 
 Chart.register({ArcElement, Tooltip, Legend})
 
-const data = {
-    labels: ['Bank1', 'Bank2', 'Bank3'],
-    datasets: [
-        {
-            label: 'Banks',
-            data: [12400, 35000, 85700],
-            backgroundColor: ['#0747b6', '#2265d8', '#2f91f2'],
-        },
-    ],
-};
 
-const DoughnutChart = (accounts:DoughnutChartProps) => {
+
+const DoughnutChart = ({accounts}:DoughnutChartProps) => {
+const balances = accounts.map(el=> el.currentBalance)
+const accountNames = accounts.map(el=>el.name)
+
+    const data = {
+        labels: accountNames,
+        datasets: [
+            {
+                label: 'Banks',
+                data: balances,
+                backgroundColor: ['#0747b6', '#2265d8', '#2f91f2'],
+            },
+        ],
+    };
   return (
     <Doughnut data={data}
     options={{

@@ -198,7 +198,6 @@ export const getTransactionStatus = (date: Date) => {
 };
 
  export const authformSchema = (type: string) =>{
-  console.log("Got here")
 		return z.object({
 			firstName:
 				type === "signIn" ? z.string().optional() : z.string().min(3).trim(),

@@ -28,7 +28,7 @@ export const createFundingSource = async (
 	options: CreateFundingSourceOptions
 ) => {
 	try {
-		console.log("OPTIONS==>>", options)
+		console.log("OPTIONS==>>", options);
 		return await dwollaClient
 			.post(`customers/${options.customerId}/funding-sources`, {
 				name: options.fundingSourceName,
@@ -46,7 +46,7 @@ export const createOnDemandAuthorization = async () => {
 			"on-demand-authorizations"
 		);
 		const authLink = onDemandAuthorization.body._links;
-		console.log("LINK: ", authLink)
+		console.log("LINK: ", authLink);
 		return authLink;
 	} catch (err) {
 		console.error("Creating an On Demand Authorization Failed: ", err);
@@ -57,11 +57,9 @@ export const createDwollaCustomer = async (
 	newCustomer: NewDwollaCustomerParams
 ) => {
 	try {
-
 		return await dwollaClient
 			.post("customers", newCustomer)
 			.then((res) => res.headers.get("location"));
-
 	} catch (err) {
 		console.error("Creating a Dwolla Customer Failed: ", err);
 	}
@@ -103,9 +101,7 @@ export const addFundingSource = async ({
 	try {
 		// create dwolla auth link
 		const dwollaAuthLinks = await createOnDemandAuthorization();
-
-
-		console.log("ADD funding ")
+		
 		// add funding source to the dwolla customer & get the funding source url
 		const fundingSourceOptions = {
 			customerId: dwollaCustomerId,
@@ -116,6 +112,6 @@ export const addFundingSource = async ({
 		return await createFundingSource(fundingSourceOptions);
 	} catch (err) {
 		console.error("Transfer fund failed: ", err);
-		console.trace("ERROR TRACE")
+		console.trace("ERROR TRACE");
 	}
 };
