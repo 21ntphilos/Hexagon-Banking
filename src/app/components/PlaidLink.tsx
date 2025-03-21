@@ -22,7 +22,9 @@ const PlaidLink = ({user, variant}:PlaidLinkProps) => {
     })
     router.push('/')
 
-  }, [user]) // use callback to be called only when the user has chnaged ie the fuction is memoized
+  },
+   [user]
+  ) // use callback to be called only when the user has chnaged ie the fuction is memoized
   
   const config : PlaidLinkOptions = {
       token,

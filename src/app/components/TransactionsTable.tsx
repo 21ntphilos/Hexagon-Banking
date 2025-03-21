@@ -1,7 +1,7 @@
 import {
     Table,
     TableBody,
-    TableCaption,
+
     TableCell,
     TableHead,
     TableHeader,
@@ -18,8 +18,8 @@ const CategoryBadge = ({ category }: CategoryBadgeProps) => {
         chipBackgroundColor } = transactionCategoryStyles[category as keyof typeof transactionCategoryStyles] || transactionCategoryStyles.default
 
     return (
-        <div className={cn('category-badge',borderColor, chipBackgroundColor)}>
-            <div className={cn('size-2 rounded-full',backgroundColor)} />
+        <div className={cn('category-badge', borderColor, chipBackgroundColor)}>
+            <div className={cn('size-2 rounded-full', backgroundColor)} />
             <p className={cn('text-[12px] font-medium', textColor)}>{category}</p>
 
         </div>
@@ -27,7 +27,7 @@ const CategoryBadge = ({ category }: CategoryBadgeProps) => {
 }
 
 const TransactionsTable = ({ transactions }: TransactionTableProps) => {
-   
+
     return (
         <Table>
             <TableHeader>
@@ -47,7 +47,6 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
                     const amount = formatAmount(t.amount)
 
                     const isDebit = t.type === "debit"
-                    const isCredit = t.type === "credit"
 
                     return (
                         <TableRow key={t.id}

@@ -4,14 +4,11 @@ import { encryptId } from "@/lib/utils";
 
 
 const SignUp = async () => {
-  const user = await getLoggedInUser();
-  console.log(encryptId("accountData.account_id"));
-  
 
   return (
     <section className="flex-center size-full max-sm:px-6">
-      <AuthForm type={"signUp"}  />
-      </section>
+      <AuthForm type={"signUp"} />
+    </section>
   )
 }
 

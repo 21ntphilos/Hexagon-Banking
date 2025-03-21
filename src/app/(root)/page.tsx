@@ -14,8 +14,6 @@ const Main = async ({ searchParams }: SearchParamProps) => {
   const account = await getAccount({ appwriteItemId })
   const currentPage = Number(page as string) || 1
 
-  console.log("AD ===>", accounts.data)
-  console.log("ACC ===>", account)
 
   return (
     <section className='home'>

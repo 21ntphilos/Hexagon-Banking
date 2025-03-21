@@ -9,7 +9,6 @@ const {
 	APPWRITE_TRANSACTIONS_COLLECTION_ID: TRANSACTION_COLLECTION_ID,
 } = process.env;
 
-
 export const getTransactionsByBankId = async ({
 	bankId,
 }: getTransactionsByBankIdProps) => {
@@ -42,7 +41,9 @@ export const getTransactionsByBankId = async ({
 	}
 };
 
-export const createTransaction = async ( transaction : CreateTransactionProps) => {
+export const createTransaction = async (
+	transaction: CreateTransactionProps
+) => {
 	try {
 		const { databases } = await createAdminClient();
 
@@ -52,11 +53,11 @@ export const createTransaction = async ( transaction : CreateTransactionProps) =
 			ID.unique(),
 			{
 				channel: "online",
-                category: 'Transfer',
-                ...transaction
+				category: "Transfer",
+				...transaction,
 			}
 		);
-        return parseStringify(newTransaction)
+		return parseStringify(newTransaction);
 	} catch (error) {
 		console.log(error);
 	}

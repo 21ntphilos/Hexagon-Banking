@@ -1,12 +1,8 @@
 "use server";
 
 import {
-	ACHClass,
 	CountryCode,
-	TransferAuthorizationCreateRequest,
-	TransferCreateRequest,
-	TransferNetwork,
-	TransferType,
+	
 } from "plaid";
 
 import { plaidClient } from "../plaid";
@@ -68,7 +64,6 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
 		// get bank from db
 		const bank = await getBank({ documentId: appwriteItemId });
 
-		
 		// get account info from plaid
 		const accountsResponse = await plaidClient.accountsGet({
 			access_token: bank.accessToken,

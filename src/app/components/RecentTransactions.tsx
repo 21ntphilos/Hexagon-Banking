@@ -12,10 +12,10 @@ const RecentTransactions = ({ accounts,
     appwriteItemId,
     page = 1 }: RecentTransactionsProps) => {
         const itemsPerPage = 12;
-        let indexOfPageLastItem = page * itemsPerPage;
-        let indexOfpageFirstItem = indexOfPageLastItem - itemsPerPage 
+        const indexOfPageLastItem = page * itemsPerPage;
+        const indexOfpageFirstItem = indexOfPageLastItem - itemsPerPage 
         
-        let currentPage = transactions.slice(indexOfpageFirstItem, indexOfPageLastItem)
+        const currentPage = transactions.slice(indexOfpageFirstItem, indexOfPageLastItem)
 
         const totalPages = Math.ceil(transactions.length/ itemsPerPage)
         

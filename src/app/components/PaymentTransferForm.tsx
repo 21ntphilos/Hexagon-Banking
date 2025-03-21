@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import CustomInput from "./CustomInput";
+
 
 const formSchema = z.object({
     email: z.string().email("Invalid email address"),
@@ -126,7 +126,7 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
                         </FormItem>
                     )}
                 />
-               
+
                 <FormField
                     control={form.control}
                     name="name"

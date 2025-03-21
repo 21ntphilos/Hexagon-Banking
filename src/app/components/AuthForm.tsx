@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -11,7 +11,7 @@ import { Loader2 } from 'lucide-react'
 import CustomInput from './CustomInput'
 import { authformSchema } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
-import { getLoggedInUser, signIn, signUp } from '@/lib/actions/userAction'
+import { signIn, signUp } from '@/lib/actions/userAction'
 import PlaidLink from './PlaidLink'
 
 
@@ -24,15 +24,6 @@ const AuthForm = ({ type }: { type: string }) => {
 
     const formSchema = authformSchema(type)
 
-    // //posibble remove 
-    // useEffect(()=>{
-    //     (async()=>{
-    //     const u = await getLoggedInUser()
-    //     setUser(u)
-    //     })()
-    // },[])
-
-    console.log("User==", user)
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
