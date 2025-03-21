@@ -3,7 +3,7 @@ import { getAccounts } from '@/lib/actions/bank.action'
 import BankCard from '@/app/components/BankCard'
 import Headbox from "../../components/Headbox"
 
-const MyBanks = async({searchParams}:SearchParamProps) => {
+const MyBanks = async() => {
 
    const loggedInUser = await getLoggedInUser()
     const accounts = await getAccounts({ userId: loggedInUser.$id })
