@@ -14,13 +14,8 @@ const Main = async ({ searchParams }: SearchParamProps) => {
   const account = await getAccount({ appwriteItemId })
   const currentPage = Number(page as string) || 1
 
-
-
   console.log("AD ===>", accounts.data)
   console.log("ACC ===>", account)
-
-
-
 
   return (
     <section className='home'>
@@ -48,7 +43,7 @@ const Main = async ({ searchParams }: SearchParamProps) => {
       {/* // "dev": "next dev --turbopack", */}
       <RigthSidebar user={loggedInUser}
         banks={accounts?.data.slice(0, 2)}
-        transactions={accounts?.transactions} />
+        transactions={account?.transactions} />
     </section>
   )
 }

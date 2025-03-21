@@ -3,6 +3,7 @@ import { getLoggedInUser } from '@/lib/actions/userAction'
 import { getAccount, getAccounts } from '@/lib/actions/bank.action'
 import { formatAmount } from "@/lib/utils"
 import TransactionsTable from "@/app/components/TransactionsTable"
+import {Pagination} from '@/app/components/Pagination'
 
 const TransactionHistory = async ({ searchParams }: SearchParamProps) => {
 
@@ -12,7 +13,16 @@ const TransactionHistory = async ({ searchParams }: SearchParamProps) => {
   if (!accounts) return
   const appwriteItemId = (id as string) || accounts?.data[0]?.appwriteItemId
   const account = await getAccount({ appwriteItemId })
-  const currentPage = Number(page as string) || 1
+  const currentPagenumber = Number(page as string) || 1;
+
+  const itemsPerPage = 12;
+  let indexOfPageLastItem = currentPagenumber * itemsPerPage;
+  let indexOfpageFirstItem = indexOfPageLastItem - itemsPerPage
+
+  let currentPageItems = account.transactions.slice(indexOfpageFirstItem, indexOfPageLastItem)
+
+  const totalPages = Math.ceil(account.transactions.length / itemsPerPage)
+
   return (
     <section className='transactions'>
       <div className="transactions-header">
@@ -31,16 +41,17 @@ const TransactionHistory = async ({ searchParams }: SearchParamProps) => {
               ●●●● ●●●● ●●●●
               <span className="text-16">{account?.data.mask}</span>
             </p>
-
           </div>
-            <div className="transactions-account-balance">
-              <p className="text-14">Current Balance</p>
-              <p className="text-24 tex-center font-bold">{formatAmount(account?.data.currentBalance)}</p>
-            </div>
+
+          <div className="transactions-account-balance">
+            <p className="text-14">Current Balance</p>
+            <p className="text-24 tex-center font-bold">{formatAmount(account?.data.currentBalance)}</p>
+          </div>
         </div>
-          <section className="flex flex-col w-full gap-6">
-            <TransactionsTable transactions={account.transactions}/>
-          </section>
+        <section className="flex flex-col w-full gap-6">
+          <TransactionsTable transactions={currentPageItems} />
+          <Pagination page={currentPagenumber} totalPages={totalPages}/>
+        </section>
       </div>
     </section>
   )

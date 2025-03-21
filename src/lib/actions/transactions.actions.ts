@@ -1,65 +1,63 @@
-// "use server";
+"use server";
 
-// import { ID, Query } from "node-appwrite";
-// import { parseStringify } from "../utils";
-// import { createAdminClient } from "../server/appWrite";
+import { ID, Query } from "node-appwrite";
+import { parseStringify } from "../utils";
+import { createAdminClient } from "../server/appWrite";
 
-// const {
-// 	APPWRITE_DB_ID: DB_ID,
-// 	APPWRITE_TRANSACTIONS_COLLECTION_ID: TRANSACTION_COLLECTION_ID,
-// } = process.env;
+const {
+	APPWRITE_DB_ID: DB_ID,
+	APPWRITE_TRANSACTIONS_COLLECTION_ID: TRANSACTION_COLLECTION_ID,
+} = process.env;
 
-// export const createTransaction = async (
-// 	transaction: CreateTransactionProps
-// ) => {
-// 	try {
-// 		const { databases } = await createAdminClient();
 
-// 		const newTransaction = await databases.createDocument(
-// 			DB_ID!,
-// 			TRANSACTION_COLLECTION_ID!,
-// 			ID.unique(),
-// 			{
-// 				channel: "online",
-// 				category: "Transfer",
-// 				...transaction,
-// 			}
-// 		);
+export const getTransactionsByBankId = async ({
+	bankId,
+}: getTransactionsByBankIdProps) => {
+	try {
+		const { databases } = await createAdminClient();
 
-// 		return parseStringify(newTransaction);
-// 	} catch (error) {
-// 		console.log(error);
-// 	}
-// };
+		const senderTransactions = await databases.listDocuments(
+			DB_ID!,
+			TRANSACTION_COLLECTION_ID!,
+			[Query.equal("senderBankId", bankId)]
+		);
 
-// export const getTransactionsByBankId = async ({
-// 	bankId,
-// }: getTransactionsByBankIdProps) => {
-// 	try {
-// 		const { databases } = await createAdminClient();
+		const receiverTransactions = await databases.listDocuments(
+			DB_ID!,
+			TRANSACTION_COLLECTION_ID!,
+			[Query.equal("receiverBankId", bankId)]
+		);
 
-// 		const senderTransactions = await databases.listDocuments(
-// 			DB_ID!,
-// 			TRANSACTION_COLLECTION_ID!,
-// 			[Query.equal("senderBankId", bankId)]
-// 		);
+		const transactions = {
+			total: senderTransactions.total + receiverTransactions.total,
+			documents: [
+				...senderTransactions.documents,
+				...receiverTransactions.documents,
+			],
+		};
 
-// 		const receiverTransactions = await databases.listDocuments(
-// 			DB_ID!,
-// 			TRANSACTION_COLLECTION_ID!,
-// 			[Query.equal("receiverBankId", bankId)]
-// 		);
+		return parseStringify(transactions);
+	} catch (error) {
+		console.log(error);
+	}
+};
 
-// 		const transactions = {
-// 			total: senderTransactions.total + receiverTransactions.total,
-// 			documents: [
-// 				...senderTransactions.documents,
-// 				...receiverTransactions.documents,
-// 			],
-// 		};
+export const createTransaction = async ( transaction : CreateTransactionProps) => {
+	try {
+		const { databases } = await createAdminClient();
 
-// 		return parseStringify(transactions);
-// 	} catch (error) {
-// 		console.log(error);
-// 	}
-// };
+		const newTransaction = await databases.createDocument(
+			DB_ID!,
+			TRANSACTION_COLLECTION_ID!,
+			ID.unique(),
+			{
+				channel: "online",
+                category: 'Transfer',
+                ...transaction
+			}
+		);
+        return parseStringify(newTransaction)
+	} catch (error) {
+		console.log(error);
+	}
+};

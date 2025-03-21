@@ -27,7 +27,7 @@ const CategoryBadge = ({ category }: CategoryBadgeProps) => {
 }
 
 const TransactionsTable = ({ transactions }: TransactionTableProps) => {
-    console.log("TTTTTT===>",transactions)
+   
     return (
         <Table>
             <TableHeader>
