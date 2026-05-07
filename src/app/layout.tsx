@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic"
 
+import Head from 'next/head'
 import type { Metadata } from "next";
 import { IBM_Plex_Serif, Inter } from "next/font/google";
 import "./globals.css";
@@ -32,6 +33,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="icon" href='./../../public/icons/logo.svg'/>
+      </Head>
       <body
         className={`${inter.variable} ${ibmplexserif.variable} antialiased`}
       >

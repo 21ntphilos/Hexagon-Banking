@@ -116,8 +116,7 @@ const AuthForm = ({ type }: { type: string }) => {
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                             {type === "signUp" && (
                                 <>
-                                    <div className="flex gap-4">
-
+                                    <div className="flex justify-between">
                                         <CustomInput name={"firstName"} placeholder={"John"} label={"First Name"} control={form.control} />
                                         <CustomInput name={"lastName"} placeholder={"ex: Doe"} label={"Last Name"} control={form.control} />
                                     </div>

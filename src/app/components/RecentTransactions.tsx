@@ -22,7 +22,7 @@ const RecentTransactions = ({ accounts,
         return (
         <section className='recent-transactions'>
             <header className="flex items-center justify-between">
-                <h2 className="recent-transaction-label">
+                <h2 className="recent-transactions-label">
                     Recent Transactions
                 </h2>
                 <Link className="view-all-btn"
