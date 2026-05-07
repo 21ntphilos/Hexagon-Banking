@@ -88,6 +88,7 @@ export const signIn = async ({ email, password }: signInProps) => {
 	try {
 		const { account } = await createAdminClient();
 		const response = await account.createEmailPasswordSession(email, password);
+		
 		(await cookies()).set("ssXERART", response.secret, {
 			path: "/",
 			httpOnly: true,
